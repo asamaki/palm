@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>masterId</key>
+		<string>200001</string>
+		<key>categoryMasterId</key>
+		<string>100001</string>
+		<key>title</key>
+		<string>大きく張り出した生命線</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>200002</string>
+		<key>categoryMasterId</key>
+		<string>100001</string>
+		<key>title</key>
+		<string>張り出しの小さい生命線</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>200003</string>
+		<key>categoryMasterId</key>
+		<string>100002</string>
+		<key>title</key>
+		<string>太く強く刻まれた運命線</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>200004</string>
+		<key>categoryMasterId</key>
+		<string>100002</string>
+		<key>title</key>
+		<string>細い運命線</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>200005</string>
+		<key>categoryMasterId</key>
+		<string>100003</string>
+		<key>title</key>
+		<string>運命線が手のひら下部-中央付近に刻まれる</string>
+	</dict>
+</array>
+</plist>

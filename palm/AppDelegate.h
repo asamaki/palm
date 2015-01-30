@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FirstTableViewController.h"
+#import "SubCategoryCollectionViewController.h"
+#import "SubCategoryCollectionViewFlowLayout.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIViewController *viewController;
+@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (strong, nonatomic) UINavigationController *navigationController;
+
+@property (strong, nonatomic) FirstTableViewController *firstTableViewCotroller;
+@property (strong, nonatomic) SubCategoryCollectionViewController *subCategoryCollectionViewCotroller;
+@property (strong, nonatomic) SubCategoryCollectionViewFlowLayout *subCategoryCollectionViewFlowLayout;
 
 
 @end

@@ -16,7 +16,62 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //////////
+    // tab1
+    //////////
+    self.firstTableViewCotroller = [[FirstTableViewController alloc]init];
+    [self.firstTableViewCotroller setTitle:@"firstTitle"];
+    UINavigationController* navigationController1 = [[UINavigationController alloc] initWithRootViewController:self.firstTableViewCotroller];
+    
+    UITabBarItem *tabItem1 = [[UITabBarItem alloc] initWithTitle:@"first"
+                                                           image:[[UIImage alloc]
+                                                                  initWithContentsOfFile:[[NSBundle mainBundle]
+                                                                                          pathForResource:@""
+                                                                                          ofType:@"png"]]
+                                                             tag:0];
+    self.firstTableViewCotroller.tabBarItem = tabItem1;
+    
+    //////////
+    // tab2
+    //////////
+    
+    //ここでflowlayout作ってControllerに受渡しているけど正しいのか？密結合になってるから美しくない。
+    UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
+
+    self.subCategoryCollectionViewCotroller = [[SubCategoryCollectionViewController alloc]initWithCollectionViewLayout:flowLayout];
+    
+    self.subCategoryCollectionViewCotroller.flowLayout = flowLayout;
+
+    UINavigationController* navigationController2 = [[UINavigationController alloc] initWithRootViewController:self.subCategoryCollectionViewCotroller];
+    [self.subCategoryCollectionViewCotroller setTitle:@"second"];
+    UITabBarItem *tabItem2 = [[UITabBarItem alloc] initWithTitle:@"second"
+                                                           image:[[UIImage alloc]
+                                                                  initWithContentsOfFile:[[NSBundle mainBundle]
+                                                                                          pathForResource:@""
+                                                                                          ofType:@"png"]]
+                                                             tag:0];
+    self.subCategoryCollectionViewCotroller.tabBarItem = tabItem2;
+    
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.040 green:0.040 blue:0.040 alpha:1.000];
+    [UITabBar appearance].barTintColor = [UIColor colorWithRed:0.040 green:0.040 blue:0.040 alpha:1.000];
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    
+    
+    self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navigationController1,
+                                                                        navigationController2, nil];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    //self.viewController = [[ViewController alloc]init];
+    //self.viewController.view.backgroundColor = [UIColor redColor];
+    self.window.rootViewController = self.tabBarController;
+    
+    
     return YES;
 }
 

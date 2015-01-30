@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>masterId</key>
+		<string>100001</string>
+		<key>title</key>
+		<string>生命線</string>
+		<key>type</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100002</string>
+		<key>title</key>
+		<string>運命線</string>
+		<key>type</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100003</string>
+		<key>title</key>
+		<string>知能線</string>
+		<key>type</key>
+		<integer>1</integer>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100004</string>
+		<key>title</key>
+		<string>ますかけ線</string>
+		<key>type</key>
+		<integer>2</integer>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100005</string>
+		<key>title</key>
+		<string>ユーモア線</string>
+		<key>type</key>
+		<integer>2</integer>
+	</dict>
+</array>
+</plist>
