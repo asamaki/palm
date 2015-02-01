@@ -23,6 +23,28 @@
     }
 }
 
++ (NSDictionary*)searchWithDictionary:(NSDictionary*)dictionary{
+    for (id key in dictionary) {
+        NSLog(@"%@", key);
+    }
+    return dictionary;
+}
++ (NSArray*)searchWithArray:(NSArray*)array key:(NSString*)key value:(NSString*)value{
+    NSArray* resultArray = @[];
+    
+    NSLog(@"%@", key);
+    NSLog(@"%@", value);
+    
+    for (id material in array) {
+        if (material[key] == value) {
+           NSLog(@"yes####################");
+        }
+        //NSLog(@"%@", value);
+    }
+    return array;
+}
+
+
 @end
 
 

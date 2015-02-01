@@ -9,10 +9,14 @@
 #import "FirstTableViewController.h"
 #import "SubCategoryCollectionViewController.h"
 #import "FirstTableViewCell.h"
+#import "CategoriesModel.h"
+#import "CategoryModel.h"
 
 @interface FirstTableViewController ()
 
-@property (nonatomic) NSArray *categoryArray;
+@property (nonatomic) NSArray *categoriesArray;
+@property (nonatomic) NSArray *parsedCategoriesArray;
+
 
 @end
 
@@ -25,16 +29,20 @@
 
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *filePath = [bundle pathForResource:@"category" ofType:@"plist"];
-   _categoryArray = [[NSArray alloc] initWithContentsOfFile:filePath];
+   _categoriesArray = [[NSArray alloc] initWithContentsOfFile:filePath];
     
-    if (_categoryArray) {
-        for (NSString *data in _categoryArray) {
-            NSLog(@"%@", data);
-        }
-    }
-    else {
-        NSLog(@"%@", @"データがありません。");
-    }
+//    if (_categoriesArray) {
+//        for (NSString *data in _categoriesArray) {
+//            //NSLog(@"%@", data);
+//        }
+//    }
+//    else {
+//        NSLog(@"%@", @"データがありません。");
+//    }
+    
+    CategoriesModel *categoriesModel = [CategoriesModel sharedInstance];
+    _parsedCategoriesArray = categoriesModel.parsedCategoriesArray;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,20 +56,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSUInteger count = [_categoryArray count];
+    //NSUInteger count = [_categoriesArray count];
+    NSUInteger count = [_parsedCategoriesArray count];
     return count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    NSString *masterId = [_categoryArray[indexPath.row] objectForKey:@"masterId"];
-    NSString *imageName = [masterId stringByAppendingString:@".jpg"];
+    //NSString *masterId = [_categoriesArray[indexPath.row] objectForKey:@"masterId"];
     
+    CategoryModel *category = _parsedCategoriesArray[indexPath.row];
+    NSString *imageName = [category.masterId stringByAppendingString:@".jpg"];
     UIImageView *cellImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
     
-    
-    cell.titleLabel.text = [_categoryArray[indexPath.row] objectForKey:@"title"];
+    cell.titleLabel.text = [_categoriesArray[indexPath.row] objectForKey:@"title"];
     cell.customImageView.image = cellImage.image;
     return cell;
 }
@@ -78,7 +87,7 @@
     
     subCategoryCollectionViewController = [[SubCategoryCollectionViewController alloc]initWithCollectionViewLayout:flowLayout];
     
-    subCategoryCollectionViewController.mainCategoryMasterId = _categoryArray[indexPath.row];
+    subCategoryCollectionViewController.mainCategoryMasterId = _categoriesArray[indexPath.row];
     
     subCategoryCollectionViewController.flowLayout = flowLayout;
     [self.navigationController pushViewController:subCategoryCollectionViewController animated:YES];

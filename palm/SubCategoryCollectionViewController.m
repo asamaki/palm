@@ -10,6 +10,7 @@
 #import "SubCategoryCollectionViewCell.h"
 #import "DetailViewController.h"
 #import "UIImageView+WebCache.h"
+#import "modelUtil.h"
 
 @interface SubCategoryCollectionViewController ()
 
@@ -31,6 +32,10 @@ static NSString * const reuseIdentifier = @"Cell";
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *filePath = [bundle pathForResource:@"subCategory" ofType:@"plist"];
     _subCategoryArray = [[NSArray alloc] initWithContentsOfFile:filePath];
+    
+    NSArray  *array = [modelUtil searchWithArray:_subCategoryArray key:@"masterId" value:_mainCategoryMasterId];
+    
+    //NSLog(@"%@", array);
     
     self.flowLayout.itemSize = CGSizeMake(self.view.frame.size.width/2-5, self.view.frame.size.width/2-5+100);
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.flowLayout];
@@ -61,6 +66,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+
     return _subCategoryArray.count;
 }
 

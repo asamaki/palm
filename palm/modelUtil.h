@@ -10,4 +10,9 @@
 
 @interface modelUtil : NSObject
 
+
++ (NSDictionary*) searchWithDictionary:(NSDictionary*)dictionary;
++ (NSArray*)searchWithArray:(NSArray*)array key:(NSString*)key value:(NSString*)value;
+
+
 @end

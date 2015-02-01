@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CategoriesModel.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    ///////////////////
+    // SharedInstance
+    ///////////////////
+    CategoriesModel *categoriesModel = [CategoriesModel sharedInstance];
+    NSLog(@"%@", categoriesModel.str);
+    MYLog(@"hoge");
+    //NSLog(@"%@" , [NSThread callStackSymbols]);
     //////////
     // tab1
     //////////
