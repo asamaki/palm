@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CategoriesModel.h"
+#import "ItemsModel.h"
 
 @interface AppDelegate ()
 
@@ -20,8 +20,7 @@
     ///////////////////
     // SharedInstance
     ///////////////////
-    CategoriesModel *categoriesModel = [CategoriesModel sharedInstance];
-    NSLog(@"%@", categoriesModel.str);
+    //ItemsModel *itemsModel = [ItemsModel sharedInstance];
     MYLog(@"hoge");
     //NSLog(@"%@" , [NSThread callStackSymbols]);
     //////////
@@ -46,22 +45,22 @@
     //ここでflowlayout作ってControllerに受渡しているけど正しいのか？密結合になってるから美しくない。
     UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
 
-    self.subCategoryCollectionViewCotroller = [[SubCategoryCollectionViewController alloc]initWithCollectionViewLayout:flowLayout];
+    self.subItemCollectionViewCotroller = [[SubItemCollectionViewController alloc]initWithCollectionViewLayout:flowLayout];
     
-    self.subCategoryCollectionViewCotroller.flowLayout = flowLayout;
+    self.subItemCollectionViewCotroller.flowLayout = flowLayout;
 
-    UINavigationController* navigationController2 = [[UINavigationController alloc] initWithRootViewController:self.subCategoryCollectionViewCotroller];
-    [self.subCategoryCollectionViewCotroller setTitle:@"second"];
+    UINavigationController* navigationController2 = [[UINavigationController alloc] initWithRootViewController:self.subItemCollectionViewCotroller];
+    [self.subItemCollectionViewCotroller setTitle:@"second"];
     UITabBarItem *tabItem2 = [[UITabBarItem alloc] initWithTitle:@"second"
                                                            image:[[UIImage alloc]
                                                                   initWithContentsOfFile:[[NSBundle mainBundle]
                                                                                           pathForResource:@""
                                                                                           ofType:@"png"]]
                                                              tag:0];
-    self.subCategoryCollectionViewCotroller.tabBarItem = tabItem2;
+    self.subItemCollectionViewCotroller.tabBarItem = tabItem2;
     
-    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.040 green:0.040 blue:0.040 alpha:1.000];
-    [UITabBar appearance].barTintColor = [UIColor colorWithRed:0.040 green:0.040 blue:0.040 alpha:1.000];
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.94 green:0.38 blue:0.57 alpha:1.0];
+    [UITabBar appearance].barTintColor = [UIColor colorWithRed:0.94 green:0.38 blue:0.57 alpha:0.0];
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
@@ -74,6 +73,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+   
+    
     
     //self.viewController = [[ViewController alloc]init];
     //self.viewController.view.backgroundColor = [UIColor redColor];

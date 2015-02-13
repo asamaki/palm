@@ -7,6 +7,9 @@
 //
 
 #import "DetailViewController.h"
+#import "ItemsModel.h"
+#import "MainItemModel.h"
+#import "SubItemModel.h"
 
 @interface DetailViewController ()
 
@@ -21,8 +24,7 @@
     
     self.scrollView = [[UIScrollView alloc]init];
 
-    NSString *subCategoryMasterId = [_subCategoryDictionary objectForKey:@"masterId"];
-    NSString *imageName = [subCategoryMasterId stringByAppendingString:@".jpg"];
+    NSString *imageName = [_masterId stringByAppendingString:@".jpg"];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
     
     CGRect rect = self.view.bounds;
@@ -33,12 +35,23 @@
     textView.font = [UIFont fontWithName:@"Helvetica" size:14];
     textView.backgroundColor = [UIColor whiteColor];
     
-    textView.text = @"";
-    for (int i = 0; i < 100; i++) {
-        // テキストを設定
-        textView.text =
-        [textView.text stringByAppendingFormat:@"%d行目\n", i + 1];
+    ItemsModel *itemsModel = [ItemsModel sharedInstance];
+    if ([_masterIdPrefix isEqualToString: MASTER_ID_PREFIX_ITEM]){
+        MainItemModel *model = [itemsModel searchParsedItemsArrayWithItemMasterId:_masterId];
+        textView.text = model.itemDescription;
+    }else if([_masterIdPrefix isEqualToString: MASTER_ID_PREFIX_SUBITEM]){
+        SubItemModel *model = [itemsModel searchParsedSubItemsArrayWithSubItemMasterId:_masterId];
+        textView.text = model.itemDescription;
+
     }
+    
+    
+//    textView.text = @"";
+//    for (int i = 0; i < 100; i++) {
+//        // テキストを設定
+//        textView.text =
+//        [textView.text stringByAppendingFormat:@"%d行目\n", i + 1];
+//    }
     
     [self.scrollView addSubview:imageView];
     [self.scrollView addSubview:textView];

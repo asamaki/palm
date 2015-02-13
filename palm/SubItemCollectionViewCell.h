@@ -1,5 +1,5 @@
 //
-//  SubCategoryCollectionViewCell.h
+//  SubItemCollectionViewCell.h
 //  palm
 //
 //  Created by Ikai Masahiro on 2015/01/30.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SubCategoryCollectionViewCell : UICollectionViewCell
+@interface SubItemCollectionViewCell : UICollectionViewCell
 
 @property (retain, nonatomic) UILabel* label;
 @property (retain, nonatomic) UIImageView* imageView;

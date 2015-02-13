@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>masterId</key>
+		<string>100001</string>
+		<key>categoryMasterId</key>
+		<string>300002</string>
+		<key>title</key>
+		<string>生命線</string>
+		<key>itemDescription</key>
+		<string>tetetetetetetetetete</string>
+		<key>itemType</key>
+		<string>1</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100002</string>
+		<key>categoryMasterId</key>
+		<string>300001</string>
+		<key>title</key>
+		<string>運命線</string>
+		<key>itemDescription</key>
+		<string>tetetetetetetetetete</string>
+		<key>itemType</key>
+		<string>1</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100003</string>
+		<key>categoryMasterId</key>
+		<string>300001</string>
+		<key>title</key>
+		<string>知能線</string>
+		<key>itemDescription</key>
+		<string>tetetetetetetetetete</string>
+		<key>itemType</key>
+		<string>1</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100004</string>
+		<key>categoryMasterId</key>
+		<string>300001</string>
+		<key>title</key>
+		<string>ますかけ線</string>
+		<key>itemDescription</key>
+		<string>tetetetetetetetetete</string>
+		<key>itemType</key>
+		<string>2</string>
+	</dict>
+	<dict>
+		<key>masterId</key>
+		<string>100005</string>
+		<key>categoryMasterId</key>
+		<string>300001</string>
+		<key>title</key>
+		<string>ユーモア線</string>
+		<key>itemDescription</key>
+		<string>tetetetetetetetetete</string>
+		<key>itemType</key>
+		<string>2</string>
+	</dict>
+</array>
+</plist>

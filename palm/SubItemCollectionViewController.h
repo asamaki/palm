@@ -1,5 +1,5 @@
 //
-//  SubCategoryCollectionViewController.h
+//  SubItemCollectionViewController.h
 //  palm
 //
 //  Created by Ikai Masahiro on 2015/01/26.
@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SubCategoryCollectionViewController : UICollectionViewController
+@interface SubItemCollectionViewController : UICollectionViewController
 
 @property(nonatomic) UICollectionViewFlowLayout* flowLayout;
-@property(nonatomic) NSArray* mainCategoryMasterId;
+@property(nonatomic) NSString* itemMasterId;
+@property(nonatomic) NSString* masterIdPrefix;
+
 
 @end

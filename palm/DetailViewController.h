@@ -11,6 +11,8 @@
 @interface DetailViewController : UIViewController
 
 @property(nonatomic) UIScrollView *scrollView;
-@property(nonatomic) NSDictionary *subCategoryDictionary;
+@property(nonatomic) NSDictionary *subItemDictionary;
+@property(nonatomic) NSString *masterId;
+@property(nonatomic) NSString *masterIdPrefix;
 
 @end

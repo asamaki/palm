@@ -1,5 +1,5 @@
 //
-//  SubCategoryModel.h
+//  SubItemModel.h
 //  palm
 //
 //  Created by Ikai Masahiro on 2015/02/01.
@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BaseCategoryModel.h"
+#import "BaseItemModel.h"
 
-@interface SubCategoryModel :BaseCategoryModel
+@interface SubItemModel :BaseItemModel
 
 @property(nonatomic) NSString *masterId;
-@property(nonatomic) NSString *categoryMasterId;
+@property(nonatomic) NSString *itemMasterId;
 @property(nonatomic) NSString *title;
+@property(nonatomic) NSString *itemDescription;
 
 @end

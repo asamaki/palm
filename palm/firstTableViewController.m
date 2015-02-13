@@ -7,16 +7,16 @@
 //
 
 #import "FirstTableViewController.h"
-#import "SubCategoryCollectionViewController.h"
+#import "SubItemCollectionViewController.h"
+#import "DetailViewController.h"
 #import "FirstTableViewCell.h"
-#import "CategoriesModel.h"
-#import "CategoryModel.h"
+#import "ItemsModel.h"
+#import "MainItemModel.h"
 
 @interface FirstTableViewController ()
 
-@property (nonatomic) NSArray *categoriesArray;
-@property (nonatomic) NSArray *parsedCategoriesArray;
-
+@property (nonatomic) ItemsModel *itemsModel;
+@property (nonatomic) NSMutableArray *displayItemsArray;
 
 @end
 
@@ -26,23 +26,23 @@
     [super viewDidLoad];
     
     [self.tableView registerClass:[FirstTableViewCell class] forCellReuseIdentifier:@"Cell"];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"カテゴリ" style:UIBarButtonItemStylePlain target:self action:@selector(modalCategory)];
+    self.navigationItem.leftBarButtonItem = barButton;
+    
+    _itemsModel = [ItemsModel sharedInstance];
+    _displayItemsArray = _itemsModel.parsedItemsArray;
+    
+    
+}
 
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *filePath = [bundle pathForResource:@"category" ofType:@"plist"];
-   _categoriesArray = [[NSArray alloc] initWithContentsOfFile:filePath];
-    
-//    if (_categoriesArray) {
-//        for (NSString *data in _categoriesArray) {
-//            //NSLog(@"%@", data);
-//        }
-//    }
-//    else {
-//        NSLog(@"%@", @"データがありません。");
-//    }
-    
-    CategoriesModel *categoriesModel = [CategoriesModel sharedInstance];
-    _parsedCategoriesArray = categoriesModel.parsedCategoriesArray;
-    
+- (void) viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+    [super viewWillAppear:animated];
+}
+
+- (void)categoryView{
+    MYLog(@"categoryView");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,22 +56,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //NSUInteger count = [_categoriesArray count];
-    NSUInteger count = [_parsedCategoriesArray count];
+    //NSUInteger count = [_itemsArray count];
+    NSUInteger count = [_displayItemsArray count];
     return count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    //NSString *masterId = [_categoriesArray[indexPath.row] objectForKey:@"masterId"];
     
-    CategoryModel *category = _parsedCategoriesArray[indexPath.row];
-    NSString *imageName = [category.masterId stringByAppendingString:@".jpg"];
+    MainItemModel *item = _displayItemsArray[indexPath.row];
+    NSString *imageName = [item.masterId stringByAppendingString:@".jpg"];
     UIImageView *cellImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
     
-    cell.titleLabel.text = [_categoriesArray[indexPath.row] objectForKey:@"title"];
-    cell.customImageView.image = cellImage.image;
+    cell.titleLabel.text = [_displayItemsArray[indexPath.row] title];
+    cell.imageView.image = cellImage.image;
     return cell;
 }
 
@@ -80,22 +79,68 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //[tableView deselectRowAtIndexPath:indexPath animated:YES]; // ハイライトを解除
     
+    NSString *itemMasterId = [_displayItemsArray[indexPath.row] masterId];
+    NSString *itemType = [_displayItemsArray[indexPath.row] itemType];
     
+    if([itemType isEqualToString:ITEM_TYPE_HAVE_SUBITEM]){
+        SubItemCollectionViewController *subItemCollectionViewController = [[SubItemCollectionViewController alloc] init];
+        
+        UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        subItemCollectionViewController = [[SubItemCollectionViewController alloc]initWithCollectionViewLayout:flowLayout];
+        
+        subItemCollectionViewController.itemMasterId = itemMasterId;
+        subItemCollectionViewController.flowLayout = flowLayout;
+        subItemCollectionViewController.masterIdPrefix = MASTER_ID_PREFIX_SUBITEM;
+
+        [self.navigationController pushViewController:subItemCollectionViewController animated:YES];
+        
+    }else if([itemType isEqualToString:ITEM_TYPE_HAVENOT_SUBITEM]){
+        DetailViewController *detailViewController = [[DetailViewController alloc]init];
+        
+        detailViewController.masterIdPrefix = MASTER_ID_PREFIX_ITEM;
+        detailViewController.masterId = itemMasterId;
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }else{
+        NSLog(@"%@", itemType);
+        MYLog(@"### 未定義のMasterIdです ###");
+    }
     
-    SubCategoryCollectionViewController *subCategoryCollectionViewController = [[SubCategoryCollectionViewController alloc] init];
-    UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    
-    subCategoryCollectionViewController = [[SubCategoryCollectionViewController alloc]initWithCollectionViewLayout:flowLayout];
-    
-    subCategoryCollectionViewController.mainCategoryMasterId = _categoriesArray[indexPath.row];
-    
-    subCategoryCollectionViewController.flowLayout = flowLayout;
-    [self.navigationController pushViewController:subCategoryCollectionViewController animated:YES];
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 150;
 }
+
+/*
+ delegate Category
+*/
+- (void)send:(NSString *)str{
+    NSLog(@"%@", str);
+    
+    NSArray *resultArray = @[];
+    NSMutableArray *resultMArray = [resultArray mutableCopy];
+    
+    _displayItemsArray = _itemsModel.parsedItemsArray;
+
+    for(MainItemModel *item in _displayItemsArray){
+        if([item.categoryMasterId isEqualToString:str]){
+            [resultMArray addObject:item];
+        }
+    }
+    _displayItemsArray = resultMArray;
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)modalCategory{
+    CategoryTableViewController *categoryTableViewController = [[CategoryTableViewController alloc]init];
+    categoryTableViewController.delegate = self;
+    UINavigationController *navigationController =
+    [[UINavigationController alloc] initWithRootViewController:categoryTableViewController];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 
 /*
 // Override to support conditional editing of the table view.

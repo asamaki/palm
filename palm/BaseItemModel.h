@@ -1,5 +1,5 @@
 //
-//  BaseCategoryModel.h
+//  BaseItemModel.h
 //  palm
 //
 //  Created by Ikai Masahiro on 2015/02/01.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BaseCategoryModel : NSObject
+@interface BaseItemModel : NSObject
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

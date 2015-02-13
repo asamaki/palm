@@ -1,5 +1,5 @@
 //
-//  SubCategoryCollectionViewFlowLayout.h
+//  SubItemCollectionViewFlowLayout.h
 //  palm
 //
 //  Created by Ikai Masahiro on 2015/01/26.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SubCategoryCollectionViewFlowLayout : UICollectionViewFlowLayout
+@interface SubItemCollectionViewFlowLayout : UICollectionViewFlowLayout
 
 @end

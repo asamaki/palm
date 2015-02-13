@@ -17,4 +17,6 @@
 #define NSLog(...)
 #endif
 
+#import "Const.h"
+
 #endif

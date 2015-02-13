@@ -20,7 +20,7 @@
         self.titleLabel  = [[UILabel alloc] initWithFrame:CGRectZero];
         self.customImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:self.titleLabel];
-        [self.contentView addSubview:self.customImageView];
+        //[self.contentView addSubview:self.customImageView];
     }
     
     return self;
@@ -30,8 +30,9 @@
     
     float desiredWidth = 80;
     float desiredHeight = 130;
-    self.titleLabel.frame = CGRectMake(desiredWidth+30,50, 200,44);
-    self.customImageView.frame = CGRectMake(10,0,desiredWidth+20,desiredHeight);
+    self.titleLabel.frame = CGRectMake(desiredWidth+50,50, 200,44);
+    //self.customImageView.frame = CGRectMake(10,0,desiredWidth+20,desiredHeight);
+    self.imageView.frame =CGRectMake(10,0,desiredWidth+20,desiredHeight);
 }
 
 

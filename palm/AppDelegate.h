@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "FirstTableViewController.h"
-#import "SubCategoryCollectionViewController.h"
-#import "SubCategoryCollectionViewFlowLayout.h"
+#import "SubItemCollectionViewController.h"
+#import "SubItemCollectionViewFlowLayout.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -20,8 +20,8 @@
 @property (strong, nonatomic) UINavigationController *navigationController;
 
 @property (strong, nonatomic) FirstTableViewController *firstTableViewCotroller;
-@property (strong, nonatomic) SubCategoryCollectionViewController *subCategoryCollectionViewCotroller;
-@property (strong, nonatomic) SubCategoryCollectionViewFlowLayout *subCategoryCollectionViewFlowLayout;
+@property (strong, nonatomic) SubItemCollectionViewController *subItemCollectionViewCotroller;
+@property (strong, nonatomic) SubItemCollectionViewFlowLayout *subItemCollectionViewFlowLayout;
 
 
 @end

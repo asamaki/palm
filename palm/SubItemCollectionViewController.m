@@ -1,62 +1,46 @@
 //
-//  SubCategoryCollectionViewController.m
+//  SubItemCollectionViewController.m
 //  palm
 //
 //  Created by Ikai Masahiro on 2015/01/26.
 //  Copyright (c) 2015年 Ikai Masahiro. All rights reserved.
 //
 
-#import "SubCategoryCollectionViewController.h"
-#import "SubCategoryCollectionViewCell.h"
+#import "SubItemCollectionViewController.h"
+#import "SubItemCollectionViewCell.h"
 #import "DetailViewController.h"
 #import "UIImageView+WebCache.h"
 #import "modelUtil.h"
+#import "ItemsModel.h"
+#import "SubItemModel.h"
 
-@interface SubCategoryCollectionViewController ()
+@interface SubItemCollectionViewController ()
 
-@property (nonatomic) NSArray *subCategoryArray;
+@property (nonatomic) NSArray *subItemArray;
+@property (nonatomic) NSArray *parsedSubItemsArray;
+@property (nonatomic) ItemsModel *itemsModel;
 
 @end
 
-@implementation SubCategoryCollectionViewController
+@implementation SubItemCollectionViewController
 
 static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *filePath = [bundle pathForResource:@"subCategory" ofType:@"plist"];
-    _subCategoryArray = [[NSArray alloc] initWithContentsOfFile:filePath];
-    
-    NSArray  *array = [modelUtil searchWithArray:_subCategoryArray key:@"masterId" value:_mainCategoryMasterId];
-    
-    //NSLog(@"%@", array);
+    _itemsModel = [ItemsModel sharedInstance];
     
     self.flowLayout.itemSize = CGSizeMake(self.view.frame.size.width/2-5, self.view.frame.size.width/2-5+100);
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.flowLayout];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    [self.collectionView registerClass:[SubCategoryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[SubItemCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -64,20 +48,20 @@ static NSString * const reuseIdentifier = @"Cell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-
-    return _subCategoryArray.count;
+    _parsedSubItemsArray = [_itemsModel searchParsedSubItemsArrayWithMasterId:_itemMasterId];
+    return _parsedSubItemsArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SubCategoryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    SubItemCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+
+    SubItemModel *subItemModel = _parsedSubItemsArray[indexPath.row];
     
-    NSString *masterId = [_subCategoryArray[indexPath.row] objectForKey:@"masterId"];
-    NSString *imageName = [masterId stringByAppendingString:@".jpg"];
+    NSString *masterId = subItemModel.masterId;
+    NSString *imageNamed = [masterId stringByAppendingString:@".jpg"];
     
-    UIImageView *cellImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
-    //cell.backgroundView = cellImage;
+    UIImageView *cellImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageNamed]];
     cell.imageView.frame = cellImage.frame;
     cell.imageView.image = cellImage.image;
     return cell;
@@ -85,8 +69,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    SubItemModel *subItemModel = _parsedSubItemsArray[indexPath.row];
+
     DetailViewController *detailViewController = [[DetailViewController alloc]init];
-    detailViewController.subCategoryDictionary = _subCategoryArray[indexPath.row];
+    //detailViewController.subItemDictionary = _subItemArray[indexPath.row];
+    detailViewController.masterId = subItemModel.masterId;
+    detailViewController.masterIdPrefix = MASTER_ID_PREFIX_SUBITEM;
     
     [self.navigationController pushViewController:detailViewController animated:YES];
     
